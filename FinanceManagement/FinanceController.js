@@ -26,7 +26,9 @@ exports.createTransaction = async (req, res) => {
     const { amount, description, customerId } = req.body;
     const transaction = new Transaction({ amount, description, customerId });
     await transaction.save();
-    res.status(201).json(transaction);
+    res
+      .status(201)
+      .json({ message: "Transaction created successfully", transaction });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -44,7 +46,10 @@ exports.updateTransaction = async (req, res) => {
     if (!updatedTransaction) {
       return res.status(404).json({ message: "Transaction not found" });
     }
-    res.json(updatedTransaction);
+    res.json({
+      message: "Transaction updated successfully",
+      transaction: updatedTransaction,
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -69,6 +74,11 @@ exports.getTransactionsByCustomerId = async (req, res) => {
   try {
     const { customerId } = req.params;
     const transactions = await Transaction.find({ customerId });
+    if (transactions.length === 0) {
+      return res.status(404).json({
+        message: "No transactions found for the provided customer ID",
+      });
+    }
     res.json(transactions);
   } catch (err) {
     res.status(500).json({ error: err.message });

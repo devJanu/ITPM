@@ -48,7 +48,7 @@ exports.createBooking = async (req, res) => {
       advancePayment,
     });
     await booking.save();
-    res.status(201).json(booking);
+    res.status(201).json({ message: "Booking created successfully", booking });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -86,7 +86,10 @@ exports.updateBooking = async (req, res) => {
     if (!updatedbooking) {
       return res.status(404).json({ message: "Booking not found" });
     }
-    res.json(updatedbooking);
+    res.json({
+      message: "Booking updated successfully",
+      booking: updatedbooking,
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -111,6 +114,11 @@ exports.getBookingsByCustomerId = async (req, res) => {
   try {
     const { customerId } = req.params;
     const bookings = await Booking.find({ customerId });
+    if (bookings.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "No bookings found for the provided customer ID" });
+    }
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ error: err.message });
