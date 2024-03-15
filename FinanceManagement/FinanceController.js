@@ -23,24 +23,33 @@ exports.getTransactionById = async (req, res) => {
 
 exports.createTransaction = async (req, res) => {
   try {
-    const { amount, description, customerId } = req.body;
-    const transaction = new Transaction({ amount, description, customerId });
+    const { amount, description, customerId, date, status } = req.body;
+    const transaction = new Transaction({
+      amount,
+      description,
+      customerId,
+      date,
+      status,
+    });
     await transaction.save();
     res
       .status(201)
       .json({ message: "Transaction created successfully", transaction });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({
+      errorMessage: "All Field Should Be Required",
+      error: err.message,
+    });
   }
 };
 
 exports.updateTransaction = async (req, res) => {
   try {
     const { id } = req.params;
-    const { amount, description } = req.body;
+    const { amount, description, date, status } = req.body;
     const updatedTransaction = await Transaction.findByIdAndUpdate(
       id,
-      { amount, description },
+      { amount, description, date, status },
       { new: true }
     );
     if (!updatedTransaction) {
@@ -51,7 +60,10 @@ exports.updateTransaction = async (req, res) => {
       transaction: updatedTransaction,
     });
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    res.status(400).json({
+      errorMessage: "All Field Should Be Required",
+      error: err.message,
+    });
   }
 };
 
@@ -126,23 +138,3 @@ exports.deductAmount = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
-// exports.getAllTransactions = async (req, res) => {
-//   try {
-//     const transactions = await Transaction.find();
-//     res.json(transactions);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
-// exports.createTransaction = async (req, res) => {
-//   try {
-//     const { amount, description } = req.body;
-//     const transaction = new Transaction({ amount, description });
-//     await transaction.save();
-//     res.status(201).json(transaction);
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// };

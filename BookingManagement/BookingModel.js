@@ -11,8 +11,6 @@ const bookingSchema = new mongoose.Schema({
   foodMenu: { type: String, required: true },
   alcoholService: { type: String, required: true },
   advancePayment: { type: String, required: true },
-  //currentAmount: { type: Number, required: true },
-  // Add more fields as needed
 });
 
 const Booking = mongoose.model("Booking", bookingSchema);

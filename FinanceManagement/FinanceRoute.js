@@ -10,7 +10,7 @@ router.delete("/:id", transactionController.deleteTransaction);
 router.get(
   "/customer/:customerId",
   transactionController.getTransactionsByCustomerId
-); // New route
+);
 router.post("/deduct-amount/:customerId", transactionController.deductAmount);
 
 module.exports = router;
