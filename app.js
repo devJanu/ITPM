@@ -3,6 +3,8 @@ const bodyParser = require("body-parser");
 const transactionRoutes = require("./FinanceManagement/FinanceRoute");
 const bookingRoutes = require("./BookingManagement/BookingRoute");
 const paymentRoutes = require("./FinanceManagement/Payment/PaymentRoute");
+const transportRoutes = require("./ServiceManagement/Transport/TransportRoute");
+
 const db = require("./DB/connection");
 
 const app = express();
@@ -18,6 +20,9 @@ app.use("/payments", paymentRoutes);
 app.use("/bookings", bookingRoutes);
 
 //Service
+app.use("/transports", transportRoutes);
+// app.use("/beautician", transportRoutes);
+// app.use("/photography", transportRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

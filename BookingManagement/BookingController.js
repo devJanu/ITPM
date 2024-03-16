@@ -162,8 +162,7 @@ exports.updateBooking = async (req, res) => {
     // Validate NIC number
     if (!/^([0-9]{9}[vV]|[0-9]{12})$/.test(nic)) {
       return res.status(400).json({
-        error:
-          "NIC must be 10 characters (including 'v') or 12 characters long",
+        error: "Invalid NIC ",
       });
     }
 
