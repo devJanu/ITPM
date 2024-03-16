@@ -5,6 +5,7 @@ const bookingRoutes = require("./BookingManagement/BookingRoute");
 const paymentRoutes = require("./FinanceManagement/Payment/PaymentRoute");
 const transportRoutes = require("./ServiceManagement/Transport/TransportRoute");
 const photographsRoutes = require("./ServiceManagement/Photography/PhotographyRoute");
+const beauticianRoutes = require("./ServiceManagement/Beautician/BeauticianRoute");
 
 const db = require("./DB/connection");
 
@@ -22,7 +23,7 @@ app.use("/bookings", bookingRoutes);
 
 //Service Management
 app.use("/transports", transportRoutes);
-// app.use("/beautician", transportRoutes);
+app.use("/beautician", beauticianRoutes);
 app.use("/photography", photographsRoutes);
 
 app.listen(PORT, () => {
