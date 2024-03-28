@@ -235,7 +235,7 @@ exports.deleteTransport = async (req, res) => {
 exports.getTransportsByCustomerId = async (req, res) => {
   try {
     const { customerId } = req.params;
-    const transports = await transport.find({ customerId });
+    const transports = await Transport.find({ customerId });
     if (transports.length === 0) {
       return res
         .status(404)

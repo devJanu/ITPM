@@ -194,7 +194,7 @@ exports.deletePhotography = async (req, res) => {
 exports.getPhotographyByCustomerId = async (req, res) => {
   try {
     const { customerId } = req.params;
-    const photographys = await photography.find({ customerId });
+    const photographys = await Photography.find({ customerId });
     if (photographys.length === 0) {
       return res.status(404).json({
         message: "No photographys found for the provided customer ID",

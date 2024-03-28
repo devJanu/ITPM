@@ -183,7 +183,7 @@ exports.deleteBeautician = async (req, res) => {
 exports.getBeauticiansByCustomerId = async (req, res) => {
   try {
     const { customerId } = req.params;
-    const beauticians = await beautician.find({ customerId });
+    const beauticians = await Beautician.find({ customerId });
     if (beauticians.length === 0) {
       return res
         .status(404)
